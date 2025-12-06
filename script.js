@@ -3,7 +3,7 @@ let tg = window.Telegram.WebApp;
 
 // Инициализация приложения
 tg.expand();
-tg.disableVerticalSwipes(); // Отключаем свайпы вниз для Telegram Web App
+tg.disableVerticalSwipes();
 tg.enableClosingConfirmation();
 
 // Скрываем кнопку MainButton от Telegram
@@ -11,7 +11,6 @@ tg.MainButton.hide();
 tg.MainButton.isVisible = false;
 
 // Элементы DOM
-const userInfoElement = document.getElementById('user-info');
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('.page-section');
 const catalogGrid = document.getElementById('catalog-grid');
@@ -24,41 +23,43 @@ const contactNowButton = document.getElementById('contact-now');
 let selectedService = null;
 let currentModal = null;
 
-// Инициализация пользователя
-function initUser() {
-    const user = tg.initDataUnsafe?.user;
-    if (user) {
-        const firstName = user.first_name || '';
-        const lastName = user.last_name || '';
-        const username = user.username || '';
-        
-        // Используем имя или username
-        let displayName = firstName || username || 'Пользователь';
-        if (firstName && lastName) {
-            displayName = `${firstName} ${lastName.charAt(0)}.`;
+// Функция для добавления анимации нажатия на кнопки
+function addButtonPressAnimation(button) {
+    if (!button) return;
+    
+    button.addEventListener('mousedown', function() {
+        this.style.transform = 'scale(0.95)';
+    });
+    
+    button.addEventListener('mouseup', function() {
+        this.style.transform = '';
+    });
+    
+    button.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+    });
+    
+    // Для touch устройств
+    button.addEventListener('touchstart', function() {
+        this.style.transform = 'scale(0.95)';
+    });
+    
+    button.addEventListener('touchend', function() {
+        this.style.transform = '';
+    });
+}
+
+// Функция для анимации переключения секций
+function animateSectionSwitch(sectionId) {
+    const sections = document.querySelectorAll('.page-section');
+    sections.forEach(section => {
+        if (section.id === sectionId) {
+            section.style.animation = 'none';
+            setTimeout(() => {
+                section.style.animation = 'sectionSwitch 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+            }, 10);
         }
-        
-        // Берем первую букву для аватара
-        const avatarLetter = displayName.charAt(0).toUpperCase();
-        
-        userInfoElement.innerHTML = `
-            <div class="user-avatar">
-                ${avatarLetter}
-            </div>
-            <div class="user-name">
-                ${displayName}
-            </div>
-        `;
-    } else {
-        userInfoElement.innerHTML = `
-            <div class="user-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="user-name">
-                Гость
-            </div>
-        `;
-    }
+    });
 }
 
 // Навигация
@@ -68,8 +69,14 @@ navLinks.forEach(link => {
         const sectionId = link.getAttribute('data-section');
         
         // Обновляем активные ссылки
-        navLinks.forEach(btn => btn.classList.remove('active'));
+        navLinks.forEach(btn => {
+            btn.classList.remove('active');
+            btn.style.transform = '';
+        });
         link.classList.add('active');
+        
+        // Анимация переключения секций
+        animateSectionSwitch(sectionId);
         
         // Показываем выбранную секцию
         sections.forEach(section => {
@@ -141,6 +148,8 @@ function loadCatalog() {
     
     // Добавляем обработчики для кнопок заказа
     document.querySelectorAll('.order-btn').forEach(button => {
+        addButtonPressAnimation(button);
+        
         button.addEventListener('click', (e) => {
             const serviceId = parseInt(e.target.closest('.order-btn').getAttribute('data-id'));
             const service = services.find(s => s.id === serviceId);
@@ -293,10 +302,18 @@ function openOrderModal(service) {
     
     if (closeButton) {
         closeButton.addEventListener('click', closeOrderModal);
+        addButtonPressAnimation(closeButton);
     }
     
     if (confirmButton) {
-        confirmButton.addEventListener('click', sendOrderToTelegram);
+        addButtonPressAnimation(confirmButton);
+        
+        confirmButton.addEventListener('click', function() {
+            this.classList.add('loading');
+            setTimeout(() => {
+                sendOrderToTelegram();
+            }, 500);
+        });
     }
     
     modal.addEventListener('click', (e) => {
@@ -368,7 +385,7 @@ ${selectedService.features.map(f => `• ${f}`).join('\n')}
     const telegramUrl = `https://t.me/EDEM_CR?text=${encodedMessage}`;
     
     // Открываем ссылку в новом окне
-    const newWindow = window.open(telegramUrl, '_blank');
+    window.open(telegramUrl, '_blank');
     
     // Закрываем модальное окно
     closeOrderModal();
@@ -395,14 +412,13 @@ ${selectedService.features.map(f => `• ${f}`).join('\n')}
 
 // Инициализация приложения
 document.addEventListener('DOMContentLoaded', () => {
-    // Инициализация пользователя
-    initUser();
-    
     // Загружаем каталог по умолчанию
     loadCatalog();
     
-    // Обработчик кнопки "Смотреть каталог" (теперь "Рекомендации")
+    // Обработчик кнопки "Смотреть рекомендации"
     if (goToCatalogButton) {
+        addButtonPressAnimation(goToCatalogButton);
+        
         goToCatalogButton.addEventListener('click', () => {
             const catalogLink = document.querySelector('[data-section="catalog"]');
             if (catalogLink) {
@@ -413,6 +429,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Обработчик кнопки "Написать в Telegram"
     if (contactNowButton) {
+        addButtonPressAnimation(contactNowButton);
+        
         contactNowButton.addEventListener('click', () => {
             window.open('https://t.me/EDEM_CR', '_blank');
         });
@@ -444,7 +462,6 @@ tg.onEvent('viewportChanged', () => {
 
 // Обработчик закрытия приложения
 tg.onEvent('close', () => {
-    // Можно добавить логику при закрытии
     console.log('Приложение закрывается');
 });
 
@@ -456,16 +473,3 @@ window.addEventListener('error', function(e) {
     console.error('Произошла ошибка:', e.error);
     tg.showAlert('Произошла ошибка. Пожалуйста, обновите страницу.');
 });
-
-// Экспортируем функции для отладки (если нужно)
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        initUser,
-        loadCatalog,
-        loadPortfolio,
-        loadReviews,
-        openOrderModal,
-        closeOrderModal,
-        sendOrderToTelegram
-    };
-}
