@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eden | Разработка Telegram Mini Apps</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <!-- Header как в perfume_shop -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>EDEN Dev</h1>
+                    <p>Разработка Telegram Mini Apps</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="user-profile" id="user-info">
+                    <!-- Информация о пользователе -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Навигация в стиле perfume_shop -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#home" class="nav-link active" data-section="home">
+                <i class="fas fa-home"></i>
+                <span>Главная</span>
+            </a>
+            <a href="#catalog" class="nav-link" data-section="catalog">
+                <i class="fas fa-th"></i>
+                <span>Каталог</span>
+            </a>
+            <a href="#portfolio" class="nav-link" data-section="portfolio">
+                <i class="fas fa-briefcase"></i>
+                <span>Портфолио</span>
+            </a>
+            <a href="#reviews" class="nav-link" data-section="reviews">
+                <i class="fas fa-star"></i>
+                <span>Отзывы</span>
+            </a>
+            <a href="#contacts" class="nav-link" data-section="contacts">
+                <i class="fas fa-phone"></i>
+                <span>Контакты</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <!-- Главная -->
+        <section id="home" class="page-section active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h2 class="hero-title">Создаём мощные Telegram Mini Apps</h2>
+                    <p class="hero-subtitle">Более 50+ успешных проектов. От MVP до комплексных решений.</p>
+                    <button class="btn btn-primary btn-large" id="go-to-catalog">
+                        <i class="fas fa-eye"></i>
+                        <span>Смотреть каталог</span>
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>2+ года</h3>
+                            <p>опыта</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>50+</h3>
+                            <p>проектов</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>100%</h3>
+                            <p>довольных клиентов</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Каталог -->
+        <section id="catalog" class="page-section">
+            <div class="section-header">
+                <h2 class="section-title">Категории Mini Apps</h2>
+                <p class="section-subtitle">Выберите тип приложения для вашего бизнеса</p>
+            </div>
+            
+            <div class="services-grid" id="catalog-grid">
+                <!-- Каталог загружается через JS -->
+            </div>
+        </section>
+
+        <!-- Портфолио -->
+        <section id="portfolio" class="page-section">
+            <div class="section-header">
+                <h2 class="section-title">Наши работы</h2>
+                <p class="section-subtitle">Реализованные проекты</p>
+            </div>
+            
+            <div class="portfolio-grid" id="portfolio-grid">
+                <!-- Портфолио загружается через JS -->
+            </div>
+        </section>
+
+        <!-- Отзывы -->
+        <section id="reviews" class="page-section">
+            <div class="section-header">
+                <h2 class="section-title">Отзывы клиентов</h2>
+                <p class="section-subtitle">Что говорят наши клиенты</p>
+            </div>
+            
+            <div class="reviews-slider" id="reviews-container">
+                <!-- Отзывы загружаются через JS -->
+            </div>
+        </section>
+
+        <!-- Контакты -->
+        <section id="contacts" class="page-section">
+            <div class="contact-card">
+                <div class="contact-header">
+                    <div class="contact-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>EDEM</h3>
+                        <p>Разработчик Telegram Mini Apps</p>
+                    </div>
+                </div>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <div>
+                            <span>Telegram:</span>
+                            <strong>@EDEM_CR</strong>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <span>Время работы:</span>
+                            <strong>10:00 - 22:00 (МСК)</strong>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-rocket"></i>
+                        <div>
+                            <span>Срок разработки:</span>
+                            <strong>5-14 дней</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-contact" id="contact-now">
+                    <i class="fab fa-telegram"></i>
+                    <span>Написать в Telegram</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Модальное окно заказа -->
+    <div class="modal-overlay" id="order-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Оформление заказа</h3>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="order-summary">
+                    <div class="order-item">
+                        <span>Услуга:</span>
+                        <strong id="service-name"></strong>
+                    </div>
+                    <div class="order-item">
+                        <span>Стоимость:</span>
+                        <strong class="price" id="service-price"></strong>
+                    </div>
+                    <div class="order-item">
+                        <span>Срок разработки:</span>
+                        <strong id="service-time"></strong>
+                    </div>
+                </div>
+                
+                <div class="order-features">
+                    <h4>Что включено:</h4>
+                    <ul class="features-list" id="service-features"></ul>
+                </div>
+                
+                <div class="order-actions">
+                    <button class="btn btn-order" id="confirm-order">
+                        <i class="fab fa-telegram"></i>
+                        <span>Оформить заказ через Telegram</span>
+                    </button>
+                    <p class="order-note">После нажатия откроется чат с разработчиком</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-code"></i>
+                <span>EDEN Dev</span>
+            </div>
+            <p class="footer-text">Разработка Telegram Mini Apps любой сложности</p>
+            <p class="footer-copyright">© 2024 Все права защищены</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
