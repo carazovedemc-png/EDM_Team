@@ -365,18 +365,17 @@ function sendOrderToTelegram() {
     
     const message = `🚀 *НОВЫЙ ЗАКАЗ*
 
-📌 *Услуга:* ${selectedService.title}
-💰 *Цена:* ${selectedService.price}
-⏰ *Срок разработки:* ${selectedService.time}
-📅 *Дата заказа:* ${dateTime}
+📨 **Услуга:** ${selectedService.title}
+🧾 **Цена:** ${selectedService.price}
+📆 **Срок разработки:** ${selectedService.time}
+🗓️ **Дата заказа:** ${dateTime}
 
-👤 *Клиент:* ${userName}${username}
-🆔 *ID:* ${userId}
+👤 **Клиент:** ${userName}${username}
+🆔 **ID:** ${userId}
 
-✨ *Включено:*
+✨ **Включено:*,
 ${selectedService.features.map(f => `• ${f}`).join('\n')}
-
-#новыйзаказ #miniapp #telegram`;
+`;
 
     // Кодируем сообщение для URL
     const encodedMessage = encodeURIComponent(message);
@@ -391,7 +390,7 @@ ${selectedService.features.map(f => `• ${f}`).join('\n')}
     closeOrderModal();
     
     // Показываем подтверждение
-    tg.showAlert('✅ Заказ отправлен! Откроется чат с разработчиком.');
+    tg.showAlert('**✅ Заказ отправлен!**');
     
     // Отправляем данные в бота, если поддерживается
     if (tg.sendData) {
