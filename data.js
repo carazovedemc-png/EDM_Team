@@ -73,51 +73,6 @@ const services = [
     }
 ];
 
-// Данные для портфолио
-const portfolio = [
-    {
-        id: 1,
-        title: "FoodExpress",
-        description: "Приложение доставки еды для сети ресторанов",
-        type: "Доставка еды",
-        icon: "fas fa-pizza-slice"
-    },
-    {
-        id: 2,
-        title: "MeetUp TG",
-        description: "Платформа для знакомств с AI-рекомендациями",
-        type: "Знакомства",
-        icon: "fas fa-heart"
-    },
-    {
-        id: 3,
-        title: "PharmaGo",
-        description: "Онлайн-аптека с доставкой лекарств",
-        type: "Аптека",
-        icon: "fas fa-pills"
-    },
-    {
-        id: 4,
-        title: "FitLife",
-        description: "Трекер тренировок и питания",
-        type: "Фитнес",
-        icon: "fas fa-dumbbell"
-    },
-    {
-        id: 5,
-        title: "BookMaster",
-        description: "Система бронирования для салонов красоты",
-        type: "Бронирование",
-        icon: "fas fa-calendar-check"
-    },
-    {
-        id: 6,
-        title: "EduMini",
-        description: "Образовательная платформа с курсами",
-        type: "Образование",
-        icon: "fas fa-graduation-cap"
-    }
-];
 
 // Данные для отзывов
 const reviews = [
