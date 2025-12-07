@@ -73,13 +73,59 @@ const services = [
     }
 ];
 
+// Данные для портфолио
+const portfolio = [
+    {
+        id: 1,
+        title: "FoodExpress",
+        description: "Приложение доставки еды для сети ресторанов",
+        type: "Доставка еды",
+        icon: "fas fa-pizza-slice"
+    },
+    {
+        id: 2,
+        title: "MeetUp TG",
+        description: "Платформа для знакомств с AI-рекомендациями",
+        type: "Знакомства",
+        icon: "fas fa-heart"
+    },
+    {
+        id: 3,
+        title: "PharmaGo",
+        description: "Онлайн-аптека с доставкой лекарств",
+        type: "Аптека",
+        icon: "fas fa-pills"
+    },
+    {
+        id: 4,
+        title: "FitLife",
+        description: "Трекер тренировок и питания",
+        type: "Фитнес",
+        icon: "fas fa-dumbbell"
+    },
+    {
+        id: 5,
+        title: "BookMaster",
+        description: "Система бронирования для салонов красоты",
+        type: "Бронирование",
+        icon: "fas fa-calendar-check"
+    },
+    {
+        id: 6,
+        title: "EduMini",
+        description: "Образовательная платформа с курсами",
+        type: "Образование",
+        icon: "fas fa-graduation-cap"
+    }
+];
+
 
 // Данные для отзывов
 const reviews = [
     {
         id: 1,
         name: "Александр",
-        initial: "А",
+        initial: "",
         rating: 5,
         text: "Сделали приложение для доставки еды за 2 недели. Все работает идеально, клиенты довольны. Рекомендую!",
         date: "15.12.2023"
@@ -87,15 +133,15 @@ const reviews = [
     {
         id: 2,
         name: "Мария",
-        initial: "М",
+        initial: "",
         rating: 5,
         text: "Заказывала Mini App для своего салона красоты. Очень профессионально, учли все пожелания. Спасибо!",
         date: "05.01.2024"
     },
     {
         id: 3,
-        name: "Иван",
-        initial: "И",
+        name: "Дмирель",
+        initial: "",
         rating: 5,
         text: "Разработали приложение для знакомств с нуля. Отличная работа, все функции работают стабильно.",
         date: "20.01.2024"
@@ -103,7 +149,7 @@ const reviews = [
     {
         id: 4,
         name: "Ольга",
-        initial: "О",
+        initial: "",
         rating: 4,
         text: "Быстрая и качественная разработка. Приложение для аптеки запустили в срок.",
         date: "10.02.2024"
