@@ -11,6 +11,7 @@
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
     --glass-bg: rgba(255, 255, 255, 0.92);
+    --accent: #2c3e50; /* Акцентный цвет для кнопок портфолио */
 }
 
 * {
@@ -24,89 +25,74 @@ body {
     background: var(--off-white);
     color: var(--primary-black);
     line-height: 1.6;
+    /* Отступ снизу для мобильной навигации. На компьютере уберется */
     padding-bottom: 80px;
 }
 
-/* Эффект матового стекла */
+/* ==================== ОБЩИЕ СТИЛИ ==================== */
 .liquid-glass {
     background: var(--glass-bg);
     backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 0 0 rgba(0, 0, 0, 0.05),
-        0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 0 rgba(0, 0, 0, 0.05),
+                0 8px 32px rgba(0, 0, 0, 0.1);
 }
+
+/* Анимации */
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes cardAppear {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+    50% { opacity: 0.7; transform: translateX(-50%) scale(1.05); }
+}
+@keyframes ripple {
+    0% { transform: scale(0, 0); opacity: 0.5; }
+    100% { transform: scale(20, 20); opacity: 0; }
+}
+
+/* ==================== МОБИЛЬНАЯ ВЕРСИЯ (по умолчанию) ==================== */
 
 /* Header */
 .main-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 1000;
     padding: 10px 20px;
 }
-
 .header-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 15px 25px;
+    padding: 15px 20px;
     border-radius: 16px;
 }
-
-/* Логотип - только текст */
-.logo-text {
-    text-align: left;
-}
-
 .logo-text h1 {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 800;
     margin-bottom: 4px;
     color: var(--primary-black);
-    letter-spacing: -0.5px;
-    position: relative;
-    display: inline-block;
     animation: fadeInSlide 0.6s ease-out;
 }
-
-@keyframes fadeInSlide {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.trademark {
-    font-size: 14px;
-    vertical-align: super;
-    color: var(--medium-gray);
-    margin-left: 3px;
-}
-
+.trademark { font-size: 12px; vertical-align: super; color: var(--medium-gray); margin-left: 2px; }
 .logo-text p {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--light-gray);
-    opacity: 0.9;
-    letter-spacing: 0.3px;
     animation: fadeInSlide 0.6s ease-out 0.1s both;
 }
 
-/* Плавающая панель навигации */
+/* Навигация - внизу на мобильных */
 .main-nav {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255, 255, 255, 0.3);
@@ -114,15 +100,13 @@ body {
     padding: 12px 0;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
 }
-
 .nav-container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
     padding: 0 10px;
 }
-
 .nav-link {
     display: flex;
     flex-direction: column;
@@ -130,150 +114,87 @@ body {
     padding: 8px 12px;
     color: var(--light-gray);
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     flex: 1;
     text-align: center;
     background: none;
     border: none;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
 }
-
-.nav-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.2), 
-        transparent);
-    transition: left 0.6s;
-}
-
-.nav-link:hover::before {
-    left: 100%;
-}
-
-.nav-link i {
-    font-size: 22px;
-    margin-bottom: 6px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-}
-
-.nav-link span {
-    font-size: 12px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.nav-link:hover {
-    color: var(--primary-black);
-    transform: translateY(-3px);
-}
-
-.nav-link:hover i {
-    transform: scale(1.15);
-}
-
+.nav-link i { font-size: 20px; margin-bottom: 6px; transition: all 0.3s ease; }
+.nav-link span { font-size: 11px; font-weight: 500; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--primary-black); }
+.nav-link:hover i { transform: scale(1.1); }
 .nav-link.active {
-    color: var(--primary-black);
     position: relative;
 }
-
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-        transform: translateX(-50%) scale(1);
-    }
-    50% {
-        opacity: 0.7;
-        transform: translateX(-50%) scale(1.05);
-    }
-}
-
 .nav-link.active::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 28px;
+    width: 24px;
     height: 3px;
     background: var(--primary-black);
     border-radius: 1.5px;
     animation: pulse 2s infinite;
 }
 
-/* Анимация переключения категорий */
-@keyframes sectionSwitch {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.page-section {
-    display: none;
-}
-
-.page-section.active {
-    display: block;
-    animation: sectionSwitch 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
 /* Основной контент */
 .main-content {
-    max-width: 1200px;
-    margin: 100px auto 30px;
-    padding: 0 20px;
+    width: 100%;
+    margin: 80px auto 30px; /* Отступ сверху для фиксированного хедера */
+    padding: 0 15px;
 }
+.page-section { display: none; }
+.page-section.active { display: block; }
 
-/* Hero секция */
-.hero-section {
+/* Секции */
+.section-header { text-align: center; margin-bottom: 40px; }
+.section-title { font-size: 28px; margin-bottom: 10px; color: var(--primary-black); }
+.section-subtitle { color: var(--light-gray); font-size: 16px; }
+
+/* Карточки услуг */
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+.service-card {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(15px);
     border-radius: 20px;
-    padding: 40px;
-    margin-bottom: 40px;
+    overflow: hidden;
     box-shadow: var(--shadow);
+    transition: all 0.4s ease;
+    cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    animation: fadeInSlide 0.8s ease-out;
+    animation: cardAppear 0.5s ease forwards;
 }
-
-.hero-content {
-    text-align: center;
-    margin-bottom: 40px;
+.service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+.service-image {
+    height: 180px;
+    background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-.hero-title {
-    font-size: 32px;
-    margin-bottom: 16px;
-    color: var(--primary-black);
-    font-weight: 700;
-    line-height: 1.2;
+.service-image i { font-size: 60px; color: var(--white); }
+.service-content { padding: 25px; }
+.service-content h3 { font-size: 20px; margin-bottom: 12px; color: var(--primary-black); }
+.service-content p { color: var(--light-gray); font-size: 15px; margin-bottom: 25px; line-height: 1.5; }
+.service-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
+.price { font-size: 26px; font-weight: 800; color: var(--primary-black); }
 
-.hero-subtitle {
-    font-size: 18px;
-    color: var(--light-gray);
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Кнопки */
+/* Кнопки (общие) */
 .btn {
-    padding: 14px 28px;
+    padding: 12px 24px;
     border: none;
     border-radius: 25px;
     font-size: 15px;
@@ -282,8 +203,8 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 8px;
+    transition: all 0.3s ease;
     text-decoration: none;
     background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
     color: var(--white);
@@ -291,942 +212,306 @@ body {
     position: relative;
     overflow: hidden;
 }
-
 .btn::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
+    top: 50%; left: 50%;
+    width: 5px; height: 5px;
     background: rgba(255, 255, 255, 0.5);
     opacity: 0;
     border-radius: 100%;
     transform: scale(1, 1) translate(-50%);
     transform-origin: 50% 50%;
 }
-
 .btn:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     background: linear-gradient(135deg, var(--dark-gray), var(--primary-black));
 }
+.btn:active::after { animation: ripple 1s ease-out; }
+.btn-primary { background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray)); }
+.btn-large { padding: 16px 32px; font-size: 16px; }
 
-.btn:active::after {
-    animation: ripple 1s ease-out;
-}
-
-@keyframes ripple {
-    0% {
-        transform: scale(0, 0);
-        opacity: 0.5;
-    }
-    100% {
-        transform: scale(20, 20);
-        opacity: 0;
-    }
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
-}
-
-.btn-large {
-    padding: 16px 36px;
-    font-size: 16px;
-}
-
-/* Секция заголовков */
-.section-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.section-title {
-    font-size: 32px;
-    margin-bottom: 15px;
-    color: var(--primary-black);
-    font-weight: 700;
-}
-
-.section-subtitle {
-    color: var(--light-gray);
-    font-size: 18px;
-}
-
-/* Сетка услуг */
-.services-grid {
+/* ==================== РАЗДЕЛ ПОРТФОЛИО (Мобильная версия) ==================== */
+.portfolio-container { width: 100%; }
+.portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: 1fr;
+    gap: 25px;
 }
-
-.service-card {
+.portfolio-card {
     background: var(--glass-bg);
     backdrop-filter: blur(15px);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: var(--shadow);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    transform-origin: center;
+    transition: all 0.4s ease;
+    animation: cardAppear 0.5s ease forwards;
 }
+.portfolio-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
 
-@keyframes cardAppear {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-.service-card {
-    animation: cardAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.service-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-}
-
-.service-image {
-    height: 180px;
+.portfolio-image-container {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
     background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
+}
+.portfolio-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.portfolio-card:hover .portfolio-image { transform: scale(1.05); }
+.portfolio-icon-fallback {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: var(--white);
+    opacity: 0.7;
+}
+
+.portfolio-content { padding: 25px; }
+.portfolio-content h3 { font-size: 22px; margin-bottom: 12px; color: var(--primary-black); }
+.portfolio-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+.portfolio-tag {
+    background: rgba(0, 0, 0, 0.08);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--medium-gray);
+}
+.portfolio-content p { color: var(--light-gray); font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
+
+/* Блок кнопок в портфолио (МОБИЛЬНАЯ ВЕРСИЯ: кнопки друг под другом) */
+.portfolio-actions {
+    display: flex;
+    flex-direction: column; /* Вертикально на мобильных */
+    gap: 12px;
+    margin-top: 20px;
+}
+.portfolio-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
-
-.service-image i {
-    font-size: 60px;
-    color: var(--white);
+.portfolio-btn-primary {
+    background: linear-gradient(135deg, var(--accent), #34495e);
+    color: white;
 }
-
-.service-content {
-    padding: 28px;
+.portfolio-btn-secondary {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--dark-gray);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
-
-.service-content h3 {
-    font-size: 22px;
-    margin-bottom: 12px;
-    color: var(--primary-black);
-    font-weight: 600;
+.portfolio-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
+.portfolio-btn-primary:hover { background: linear-gradient(135deg, #34495e, var(--accent)); }
+.portfolio-btn-secondary:hover { background: var(--white); }
 
-.service-content p {
-    color: var(--light-gray);
-    font-size: 15px;
-    margin-bottom: 25px;
-    line-height: 1.5;
+/* Остальные секции (Главная, Отзывы, Контакты) */
+.hero-section {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 35px 25px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
-
-.service-price {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.price {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--primary-black);
-}
-
-/* Статистика */
-.hero-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-}
-
+.hero-title { font-size: 28px; margin-bottom: 16px; color: var(--primary-black); line-height: 1.2; }
+.hero-subtitle { font-size: 17px; color: var(--light-gray); margin-bottom: 30px; }
+.hero-stats { display: grid; grid-template-columns: 1fr; gap: 20px; }
 .stat-item {
     background: rgba(255, 255, 255, 0.7);
-    padding: 30px 25px;
+    padding: 25px 20px;
     border-radius: 16px;
     text-align: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px);
-    animation: fadeInSlide 0.6s ease-out;
 }
-
-.stat-item:nth-child(1) { animation-delay: 0.1s; }
-.stat-item:nth-child(2) { animation-delay: 0.2s; }
-.stat-item:nth-child(3) { animation-delay: 0.3s; }
-
-.stat-item:hover {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: var(--shadow-hover);
-}
-
+.stat-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
 .stat-icon {
-    width: 70px;
-    height: 70px;
+    width: 60px; height: 60px;
     background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    color: var(--white);
-    font-size: 28px;
-    transition: all 0.3s ease;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 15px;
+    color: var(--white); font-size: 24px;
 }
+.stat-info h3 { font-size: 28px; color: var(--primary-black); margin-bottom: 5px; }
+.stat-info p { color: var(--light-gray); font-size: 14px; }
 
-.stat-item:hover .stat-icon {
-    transform: rotate(360deg);
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.stat-info h3 {
-    font-size: 32px;
-    color: var(--primary-black);
-    margin-bottom: 8px;
-}
-
-.stat-info p {
-    color: var(--light-gray);
-    font-size: 15px;
-}
-
-/* Портфолио, отзывы, контакты */
-.portfolio-grid,
-.reviews-slider {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-.portfolio-card,
+.reviews-slider { display: grid; grid-template-columns: 1fr; gap: 25px; }
 .review-card {
     background: var(--glass-bg);
     backdrop-filter: blur(15px);
+    padding: 25px;
     border-radius: 20px;
-    padding: 32px;
     box-shadow: var(--shadow);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
 }
-
-.portfolio-card:hover,
-.review-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-}
-
-.portfolio-image {
-    height: 200px;
-    background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 60px;
-    color: var(--white);
-    margin-bottom: 25px;
-}
-
 .contact-card {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     border-radius: 20px;
-    padding: 45px;
+    padding: 35px 25px;
     box-shadow: var(--shadow);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    max-width: 500px;
+    max-width: 100%;
     margin: 0 auto;
 }
-
-.contact-header {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 35px;
-}
-
-.contact-avatar {
-    width: 85px;
-    height: 85px;
-    background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    color: var(--white);
-    flex-shrink: 0;
-}
-
-.contact-info h3 {
-    font-size: 26px;
-    margin-bottom: 8px;
-}
-
-.contact-info p {
-    color: var(--light-gray);
-    font-size: 16px;
-}
-
-.contact-details {
-    margin-bottom: 35px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.contact-item:last-child {
-    border-bottom: none;
-}
-
-.contact-item i {
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--medium-gray);
-    font-size: 20px;
-    flex-shrink: 0;
-}
-
-.contact-item div {
-    flex: 1;
-}
-
-.contact-item span {
-    color: var(--light-gray);
-    font-size: 15px;
-    display: block;
-    margin-bottom: 4px;
-}
-
-.contact-item strong {
-    color: var(--dark-gray);
-    font-size: 17px;
-}
-
 .btn-contact {
     width: 100%;
     background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
     color: var(--white);
-    padding: 20px;
-    font-size: 18px;
-    border-radius: 30px;
-}
-
-.btn-contact:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
-
-/* Модальное окно */
-@keyframes modalAppear {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes modalDisappear {
-    from {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-    }
-}
-
-.modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 2000;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    backdrop-filter: blur(5px);
-}
-
-.modal-overlay.active {
-    display: flex;
-}
-
-.modal-container {
-    background: var(--glass-bg);
-    backdrop-filter: blur(25px);
-    border-radius: 24px;
-    max-width: 420px;
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
-    animation: modalAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.modal-overlay:not(.active) .modal-container {
-    animation: modalDisappear 0.3s ease forwards;
-}
-
-.modal-header {
-    padding: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.2) 0%, 
-        rgba(255, 255, 255, 0.1) 100%);
-}
-
-.modal-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--primary-black);
-}
-
-.modal-close {
-    background: none;
-    border: none;
-    font-size: 32px;
-    color: var(--light-gray);
-    cursor: pointer;
-    line-height: 1;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: background-color 0.2s ease;
-}
-
-.modal-close:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.order-summary {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 24px;
-    margin: 24px;
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.order-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.order-item:last-child {
-    border-bottom: none;
-}
-
-.order-item span {
-    color: var(--light-gray);
+    padding: 18px;
     font-size: 16px;
+    border-radius: 25px;
 }
+.btn-contact:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
 
-.order-item strong {
-    color: var(--primary-black);
-    font-size: 16px;
-    text-align: right;
-}
-
-.order-features {
-    padding: 0 24px;
-}
-
-.order-features h4 {
-    font-size: 18px;
-    margin-bottom: 16px;
-    color: var(--primary-black);
-    padding-left: 8px;
-}
-
-.features-list {
-    list-style: none;
-    margin-bottom: 24px;
-    padding-left: 8px;
-}
-
-.features-list li {
-    padding: 10px 0;
-    padding-left: 28px;
-    position: relative;
-    color: var(--light-gray);
-    font-size: 15px;
-    line-height: 1.5;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.features-list li:last-child {
-    border-bottom: none;
-}
-
-.features-list li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--primary-black);
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.order-actions {
-    padding: 24px;
-    padding-top: 0;
-}
-
-.btn-order {
-    width: 100%;
-    background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
-    color: var(--white);
-    padding: 20px;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-@keyframes loading {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 100%;
-    }
-}
-
-.btn-order:hover {
-    background: linear-gradient(135deg, var(--dark-gray), var(--primary-black));
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.btn-order.loading::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.2), 
-        transparent);
-    animation: loading 1.5s infinite;
-}
-
-.order-note {
-    text-align: center;
-    color: var(--lighter-gray);
-    font-size: 14px;
-    margin-top: 16px;
-    padding: 0 10px;
-}
-
-/* Футер */
 .main-footer {
     background: linear-gradient(135deg, var(--dark-gray) 0%, #1a1e23 100%);
     color: var(--white);
-    padding: 50px 20px;
+    padding: 40px 20px;
     margin-top: 80px;
-    position: relative;
-    overflow: hidden;
 }
+.footer-content { max-width: 100%; margin: 0 auto; text-align: center; }
 
-.main-footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
-}
+/* ==================== ВЕРСИЯ ДЛЯ ПЛАНШЕТОВ (min-width: 768px) ==================== */
+@media (min-width: 768px) {
+    .header-container { padding: 15px 30px; }
+    .logo-text h1 { font-size: 24px; }
+    .logo-text p { font-size: 13px; }
 
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-}
-
-.footer-logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 25px;
-    color: var(--white);
-}
-
-.footer-logo i {
-    color: var(--white);
-}
-
-.footer-text {
-    color: #aaa;
-    margin-bottom: 15px;
-    font-size: 17px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.footer-copyright {
-    color: #777;
-    font-size: 15px;
-    margin-top: 10px;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    .header-container {
-        padding: 12px 20px;
-    }
-    
-    .logo-text h1 {
-        font-size: 22px;
-    }
-    
-    .logo-text p {
-        font-size: 12px;
-    }
-    
     .main-content {
-        margin: 90px auto 100px;
-        padding: 0 15px;
+        max-width: 720px;
+        margin: 100px auto 40px;
+        padding: 0 20px;
     }
-    
-    .hero-section {
-        padding: 30px 20px;
+
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .reviews-slider { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { grid-template-columns: repeat(3, 1fr); }
+
+    .hero-title { font-size: 32px; }
+    .hero-subtitle { font-size: 18px; }
+    .section-title { font-size: 32px; }
+
+    /* На планшете кнопки в портфолио уже можно ставить в ряд */
+    .portfolio-actions {
+        flex-direction: row; /* Горизонтально на планшете и ПК */
+        justify-content: space-between;
     }
-    
-    .hero-title {
-        font-size: 26px;
+    .portfolio-btn { flex: 1; }
+}
+
+/* ==================== ВЕРСИЯ ДЛЯ КОМПЬЮТЕРОВ (min-width: 1024px) ==================== */
+@media (min-width: 1024px) {
+    /* 👇 КАРДИНАЛЬНЫЕ ИЗМЕНЕНИЯ ДЛЯ ПК */
+
+    /* 1. Убираем отступ снизу, т.к. навигация теперь вверху */
+    body { padding-bottom: 0; }
+
+    /* 2. Header и Навигация ОБЪЕДИНЯЮТСЯ в одну строку */
+    .main-header {
+        position: fixed;
+        padding: 15px 40px;
     }
-    
-    .hero-subtitle {
-        font-size: 16px;
+    .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 18px 35px;
+        justify-content: space-between; /* Лого слева, навигация справа */
+        flex-direction: row;
     }
-    
+
+    /* 3. Навигация перемещается из низа в шапку */
+    .main-nav {
+        position: static; /* Убираем фиксированное положение */
+        background: transparent;
+        backdrop-filter: none;
+        border-top: none;
+        box-shadow: none;
+        padding: 0;
+        width: auto;
+    }
+    .nav-container {
+        padding: 0;
+        justify-content: flex-end; /* Прижимаем навигацию к правому краю */
+        gap: 10px;
+    }
     .nav-link {
-        padding: 6px 8px;
+        flex-direction: row; /* Иконка и текст в ряд */
+        padding: 10px 18px;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.7);
+        margin-left: 5px;
     }
-    
-    .nav-link i {
-        font-size: 20px;
+    .nav-link i { font-size: 18px; margin-bottom: 0; margin-right: 8px; }
+    .nav-link span { font-size: 14px; }
+    .nav-link.active::after {
+        bottom: -8px; /* Полоска активного пункта ниже */
+        width: 20px;
+        height: 3px;
     }
-    
-    .nav-link span {
-        font-size: 11px;
-    }
-    
-    .services-grid,
-    .portfolio-grid,
-    .reviews-slider {
-        grid-template-columns: 1fr;
-    }
-    
-    .hero-stats {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .contact-card {
-        padding: 30px 25px;
-    }
-    
-    .btn-large {
-        padding: 16px 32px;
-        font-size: 16px;
-    }
-    
-    .modal-container {
-        margin: 10px;
-        width: calc(100% - 20px);
-    }
-}
 
-@media (max-width: 480px) {
-    .header-container {
-        padding: 10px 15px;
-    }
-    
-    .logo-text h1 {
-        font-size: 20px;
-    }
-    
-    .logo-text p {
-        font-size: 11px;
-    }
-    
+    /* 4. Основной контент становится шире */
     .main-content {
-        margin: 85px auto 90px;
-    }
-    
-    .hero-title {
-        font-size: 22px;
-    }
-    
-    .nav-link i {
-        font-size: 18px;
-    }
-    
-    .nav-link span {
-        font-size: 10px;
-    }
-    
-    .btn-large {
-        padding: 14px 28px;
-        font-size: 15px;
-    }
-    
-    .service-content,
-    .portfolio-content {
-        padding: 20px;
-    }
-    
-    .price {
-        font-size: 24px;
-    }
+        max-width: 1200px;
+        margin: 140px auto 60px; /* Больше отступ сверху из-за объединенного хедера */
+        padding: 0 30px;
     }
 
-import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
-import { useEffect, useRef } from 'react';
+    /* 5. Сетки становятся на 3-4 колонки */
+    .services-grid { grid-template-columns: repeat(3, 1fr); gap: 35px; }
+    .portfolio-grid { grid-template-columns: repeat(3, 1fr); gap: 35px; }
+    .reviews-slider { grid-template-columns: repeat(3, 1fr); gap: 30px; }
 
-import './Aurora.css';
+    /* 6. Увеличиваем шрифты и отступы */
+    .hero-section { padding: 60px 50px; }
+    .hero-title { font-size: 42px; }
+    .hero-subtitle { font-size: 20px; max-width: 700px; margin: 0 auto 40px; }
+    .section-title { font-size: 38px; }
+    .section-subtitle { font-size: 18px; }
 
-const VERT = `#version 300 es
-in vec2 position;
-void main() {
-  gl_Position = vec4(position, 0.0, 1.0);
-}
-`;
+    .service-content h3 { font-size: 22px; }
+    .portfolio-content h3 { font-size: 24px; }
 
-const FRAG = `#version 300 es
-precision highp float;
-
-uniform float uTime;
-uniform float uAmplitude;
-uniform vec3 uColorStops[3];
-uniform vec2 uResolution;
-uniform float uBlend;
-
-out vec4 fragColor;
-
-vec3 permute(vec3 x) {
-  return mod(((x * 34.0) + 1.0) * x, 289.0);
-}
-
-float snoise(vec2 v){
-  const vec4 C = vec4(
-      0.211324865405187, 0.366025403784439,
-      -0.577350269189626, 0.024390243902439
-  );
-  vec2 i  = floor(v + dot(v, C.yy));
-  vec2 x0 = v - i + dot(i, C.xx);
-  vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-  vec4 x12 = x0.xyxy + C.xxzz;
-  x12.xy -= i1;
-  i = mod(i, 289.0);
-
-  vec3 p = permute(
-      permute(i.y + vec3(0.0, i1.y, 1.0))
-    + i.x + vec3(0.0, i1.x, 1.0)
-  );
-
-  vec3 m = max(
-      0.5 - vec3(
-          dot(x0, x0),
-          dot(x12.xy, x12.xy),
-          dot(x12.zw, x12.zw)
-      ), 
-      0.0
-  );
-  m = m * m;
-  m = m * m;
-
-  vec3 x = 2.0 * fract(p * C.www) - 1.0;
-  vec3 h = abs(x) - 0.5;
-  vec3 ox = floor(x + 0.5);
-  vec3 a0 = x - ox;
-  m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
-
-  vec3 g;
-  g.x  = a0.x  * x0.x  + h.x  * x0.y;
-  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-  return 130.0 * dot(m, g);
-}
-
-struct ColorStop {
-  vec3 color;
-  float position;
-};
-
-#define COLOR_RAMP(colors, factor, finalColor) {              \
-  int index = 0;                                            \
-  for (int i = 0; i < 2; i++) {                               \
-     ColorStop currentColor = colors[i];                    \
-     bool isInBetween = currentColor.position <= factor;    \
-     index = int(mix(float(index), float(i), float(isInBetween))); \
-  }                                                         \
-  ColorStop currentColor = colors[index];                   \
-  ColorStop nextColor = colors[index + 1];                  \
-  float range = nextColor.position - currentColor.position; \
-  float lerpFactor = (factor - currentColor.position) / range; \
-  finalColor = mix(currentColor.color, nextColor.color, lerpFactor); \
-}
-
-void main() {
-  vec2 uv = gl_FragCoord.xy / uResolution;
-  
-  ColorStop colors[3];
-  colors[0] = ColorStop(uColorStops[0], 0.0);
-  colors[1] = ColorStop(uColorStops[1], 0.5);
-  colors[2] = ColorStop(uColorStops[2], 1.0);
-  
-  vec3 rampColor;
-  COLOR_RAMP(colors, uv.x, rampColor);
-  
-  float height = snoise(vec2(uv.x * 2.0 + uTime * 0.1, uTime * 0.25)) * 0.5 * uAmplitude;
-  height = exp(height);
-  height = (uv.y * 2.0 - height + 0.2);
-  float intensity = 0.6 * height;
-  
-  float midPoint = 0.20;
-  float auroraAlpha = smoothstep(midPoint - uBlend * 0.5, midPoint + uBlend * 0.5, intensity);
-  
-  vec3 auroraColor = intensity * rampColor;
-  
-  fragColor = vec4(auroraColor * auroraAlpha, auroraAlpha);
-}
-`;
-
-export default function Aurora(props) {
-  const { colorStops = ['#5227FF', '#7cff67', '#5227FF'], amplitude = 1.0, blend = 0.5 } = props;
-  const propsRef = useRef(props);
-  propsRef.current = props;
-
-  const ctnDom = useRef(null);
-
-  useEffect(() => {
-    const ctn = ctnDom.current;
-    if (!ctn) return;
-
-    const renderer = new Renderer({
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: true
-    });
-    const gl = renderer.gl;
-    gl.clearColor(0, 0, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-    gl.canvas.style.backgroundColor = 'transparent';
-
-    let program;
-
-    function resize() {
-      if (!ctn) return;
-      const width = ctn.offsetWidth;
-      const height = ctn.offsetHeight;
-      renderer.setSize(width, height);
-      if (program) {
-        program.uniforms.uResolution.value = [width, height];
-      }
+    /* 7. Особенный дизайн карточек портфолио для ПК */
+    .portfolio-card {
+        position: relative;
+        overflow: visible;
     }
-    window.addEventListener('resize', resize);
-
-    const geometry = new Triangle(gl);
-    if (geometry.attributes.uv) {
-      delete geometry.attributes.uv;
+    /* Эффект поднятия карточки на ПК сильнее */
+    .portfolio-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
     }
-
-    const colorStopsArray = colorStops.map(hex => {
-      const c = new Color(hex);
-      return [c.r, c.g, c.b];
-    });
-
-    program = new Program(gl, {
-      vertex: VERT,
-      fragment: FRAG,
-      uniforms: {
-        uTime: { value: 0 },
-        uAmplitude: { value: amplitude },
-        uColorStops: { value: colorStopsArray },
-        uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
-        uBlend: { value: blend }
-      }
-    });
-
-    const mesh = new Mesh(gl, { geometry, program });
-    ctn.appendChild(gl.canvas);
-
-    let animateId = 0;
-    const update = t => {
-      animateId = requestAnimationFrame(update);
-      const { time = t * 0.01, speed = 1.0 } = propsRef.current;
-      program.uniforms.uTime.value = time * speed * 0.1;
-      program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
-      program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
-      const stops = propsRef.current.colorStops ?? colorStops;
-      program.uniforms.uColorStops.value = stops.map(hex => {
-        const c = new Color(hex);
-        return [c.r, c.g, c.b];
-      });
-      renderer.render({ scene: mesh });
-    };
-    animateId = requestAnimationFrame(update);
-
-    resize();
-
-    return () => {
-      cancelAnimationFrame(animateId);
-      window.removeEventListener('resize', resize);
-      if (ctn && gl.canvas.parentNode === ctn) {
-        ctn.removeChild(gl.canvas);
-      }
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amplitude]);
-
-  return <div ref={ctnDom} className="aurora-container" />;
+    /* На ПК кнопки в портфолио можно сделать более заметными */
+    .portfolio-actions {
+        position: relative;
+        z-index: 2;
+    }
 }
