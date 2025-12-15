@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <!-- КРИТИЧЕСКИ ВАЖНЫЙ тег для адаптивности на мобильных -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EDM™ | Разработка Telegram Mini Apps</title>
     <link rel="stylesheet" href="style.css">
@@ -10,7 +9,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <!-- Header с логотипом EDM™ -->
+    <!-- Header -->
     <header class="main-header">
         <div class="header-container liquid-glass">
             <div class="logo-text">
@@ -20,7 +19,7 @@
         </div>
     </header>
 
-    <!-- Основная навигация. На компьютере станет горизонтальной вверху -->
+    <!-- Навигация -->
     <nav class="main-nav">
         <div class="nav-container">
             <a href="#home" class="nav-link active" data-section="home">
@@ -30,10 +29,6 @@
             <a href="#catalog" class="nav-link" data-section="catalog">
                 <i class="fas fa-th"></i>
                 <span>Рекомендации</span>
-            </a>
-            <a href="#portfolio" class="nav-link" data-section="portfolio">
-                <i class="fas fa-briefcase"></i>
-                <span>Портфолио</span>
             </a>
             <a href="#reviews" class="nav-link" data-section="reviews">
                 <i class="fas fa-star"></i>
@@ -46,14 +41,14 @@
         </div>
     </nav>
 
-    <!-- Основной контент приложения -->
+    <!-- Основной контент -->
     <main class="main-content">
-        <!-- Секция: Главная -->
+        <!-- Главная -->
         <section id="home" class="page-section active">
             <div class="hero-section">
                 <div class="hero-content">
                     <h2 class="hero-title">Создаём мощные Telegram Mini Apps</h2>
-                    <p class="hero-subtitle">Более 50+ успешных проектов. От MVP до комплексных решений.</p>
+                    <p class="hero-subtitle">Более 25+ успешных проектов. От MVP до комплексных решений.</p>
                     <button class="btn btn-primary btn-large" id="go-to-catalog">
                         <i class="fas fa-eye"></i>
                         <span>Смотреть рекомендации</span>
@@ -83,7 +78,7 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="stat-info">
-                            <h3>100%</h3>
+                            <h3>99%</h3>
                             <p>довольных клиентов</p>
                         </div>
                     </div>
@@ -91,43 +86,32 @@
             </div>
         </section>
 
-        <!-- Секция: Рекомендации (бывший каталог) -->
+        <!-- Каталог (Рекомендации) -->
         <section id="catalog" class="page-section">
             <div class="section-header">
                 <h2 class="section-title">Рекомендации</h2>
                 <p class="section-subtitle">Выберите тип приложения для вашего бизнеса</p>
             </div>
+            
             <div class="services-grid" id="catalog-grid">
-                <!-- Каталог услуг загружается через JS -->
+                <!-- Каталог загружается через JS -->
             </div>
         </section>
 
-        <!-- Секция: ПОРТФОЛИО (полностью переработанная, с кнопками) -->
-        <section id="portfolio" class="page-section">
-            <div class="section-header">
-                <h2 class="section-title">Наши работы</h2>
-                <p class="section-subtitle">Реализованные проекты с живыми примерами</p>
-            </div>
-            <!-- Контейнер для карточек портфолио. На компьютере сетка сложнее -->
-            <div class="portfolio-container">
-                <div class="portfolio-grid" id="portfolio-grid">
-                    <!-- Портфолио загружается через JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Секция: Отзывы -->
+        
+        <!-- Отзывы -->
         <section id="reviews" class="page-section">
             <div class="section-header">
                 <h2 class="section-title">Отзывы клиентов</h2>
                 <p class="section-subtitle">Что говорят наши клиенты</p>
             </div>
+            
             <div class="reviews-slider" id="reviews-container">
                 <!-- Отзывы загружаются через JS -->
             </div>
         </section>
 
-        <!-- Секция: Контакты -->
+        <!-- Контакты -->
         <section id="contacts" class="page-section">
             <div class="contact-card">
                 <div class="contact-header">
@@ -139,6 +123,7 @@
                         <p>Разработчик Telegram Mini Apps</p>
                     </div>
                 </div>
+                
                 <div class="contact-details">
                     <div class="contact-item">
                         <i class="fab fa-telegram"></i>
@@ -162,6 +147,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <button class="btn btn-contact" id="contact-now">
                     <i class="fab fa-telegram"></i>
                     <span>Написать в Telegram</span>
@@ -185,4 +171,4 @@
     <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
+                    </html>
